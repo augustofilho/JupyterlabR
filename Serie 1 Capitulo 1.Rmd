@@ -1,0 +1,249 @@
+---
+title: "Serie 1 - Capítulo 1"
+author: "Augusto Filho"
+date: "10/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercícios
+
+
+
+### Questão 1 - Lance um dado e uma moeda
+
+
+* a ) **Construa o espaço amostral**
+
+$\color{red}{\text{Resolução:}}$ 
+
+O espaço amostral é a união de todos os resultados possíveis de um experimento, ou seja, deveremos unir em uma única resposta os resultados possíveis associados ao lançamento de uma moeda **cara** e **coroa** e os resultados obtidos em um lançamento de um dado  (`r seq(1:6)`). Poranto, deveremos **concatenar** os resultados e para isso utilizaremos o comando **paste**:
+
+
+
+```{r}
+cara=paste("cara",1:6,sep = ",")
+coroa=paste("coroa",1:6,sep=",")
+amostra=c(cara,coroa)
+```
+
+Portanto o espaço amostral é dado por:
+
+```{r}
+amostra
+```
+
+
+* b ) **Enumere os seguintes eventos:**
+
+  + A ={Coroa marcado por um número par}
+  + B ={Cara, marcado por um número ímpar}
+  + C ={Múltiplo de 3}
+
+$\color{red}{\text{Resolução:}}$ 
+
+O evento **A** deverá ser composto por **coroa** e acompanhando por um número **par**, desta forma, temos:
+
+```{r}
+i=c(8,10,12)
+print(amostra[i])
+```
+É importante observar que a **amostra** apresenta uma sequência de resultados numeradas de `r seq(1:12)` e se usarmos a posição de cada resultado, poderemos determinar a resposta, ou seja, a posição da amostra[2] nos resultará na resposta (`r amostra[2]`).
+
+
+O evento **B** é apresentado por:
+```{r}
+i=c(2,4,6)
+print(amostra[i])
+```
+
+O evento **C** é constituído pelos resultados que são múltiplos de três, desta forma, temos:
+```{r}
+i=c(3,6,9,12)
+print(amostra[i])
+```
+
+
+* c ) **Expresse os eventos:**
+  + $\overline{B}$
+  + A ou B ocorrem
+  + B e C ocorrem
+  + $\overline{(A \cup B)}$
+
+$\color{red}{\text{Resolução:}}$ 
+
+> + Na primeira pergunta, deveremos determinar todos os elementos que constituem a pergunta: $(amostra-B)$, em que B é constituído de ("cara,2"; "cara,4" e "cara,6"), portanto temos:
+
+
+\item $\begin{eqnarray}
+\overline{B} &=&Amostra - B\\
+\overline{B} &=& (cara,1),(cara,3),(cara,5),(coroa,1),(coroa,2),(coroa,3),(coroa,4),(coroa,5),(coroa,6)
+\end{eqnarray}$
+
+> + Para a segunda pergunta temos $A \cup B$, usando uma pequena rotina no R, temos:
+```{r}
+i=c(2,3,4,6,9,12)
+print(amostra[i])
+```
+> + Para a letra (c), temos:
+
+Deveremos determinar os elementos comuns entre o evento *A* e o evento *B*, desta forma, temos:
+```{r}
+i=6
+print(amostra[i])
+```
+observe que somente o elemento que ocupa a sexta posição é ao mesmo tempo par e ímpar.
+
+
+> + Para determinar $(\overline{A \cup B})$, temos:
+
+```{r}
+i=c(1,7,8,10,11)
+print(amostra[i])
+```
+
+
+> + Quais dos eventos A, B e C são mutuamente exclusivos?
+
+Para que os eventos A, B e C sejam considerados eventos mutuamente exclusivos, deveremos ter $(A \cap B)=0$, $(A \cap C)=0$, $(B \cap C)=0$ ou $(A \cap B \cap C)=0$, ou seja, não devem haver elementos em comum entre os conjuntos. Já conhecemos os elementos que compõe o evento *A*, e *B*, os elementos que compoõe o evento *C* é apresentado a seguir:
+
+
+```{r}
+#C múltiplo de 3.
+i=c(3,6,9,12)
+amostra[i]
+```
+Portanto, iremos verificar se $(A \cap B)$?
+```{r}
+i=6
+print(amostra[i])
+```
+Logo $(A \cap B)= (cara,6)$, que caracteriza que não é um evento disjuntou ou mutuamente excludente. Mais o que dizer de $(A \cap C)$?
+
+```{r}
+i=6
+print(amostra[i])
+```
+Portanto o evento $(A \cap C)= (cara,6)$ que caracteriza que não é um evento disjunto. O evento ($B \cap C$) é apresentado a seguir:
+
+```{r}
+i=c(3,6,9,12)
+print(amostra[i])
+```
+Logo o evento $(B \cap C)= (cara,3),(cara,6),(coroa,3),(coroa,6)$. Portanto o evento $(A \cap B \cap C)=(cara,6)$, ou seja, o evento em estudo não é mutuamente exclusivo.
+
+
+
+
+
+### Questão 2 - Se $P(A)=\frac{1}{2}$; $P(B)=\frac{1}{4}$ e A e B mutuamente exclusivos, calcular:
+
+$\color{red}{\text{Resolução:}}$ 
+
+Neste exercícios já é sabido os valos das probabilidades de $P(A)=0,5$, $P(B)=0,25$ e   $P(A \cap B)=0$, visto que A e B são mutuamente excludentes. Uma pequena rotina feita em R é apresentada a seguir:
+
+```{r}
+prob=function(a,b){
+  cat("a) A probabilidade do complemento de A é",1-a)
+  cat("\nb) A probabilidade do complemento de B é",1-b)
+  cat("\nc) A probabilidade do complementar de A inter B é",0)
+  cat("\nd) A probabilidade de A uniao B é",a+b)
+  cat("\ne) A probabilidade do complementar de A inter B é",1)
+}
+```
+Os valores das probabilidades de A e B são dados por $a=0.50$ e $b=0.25$, desta forma, temos:
+
+```{r}
+prob(0.50,0.75)
+```
+
+
+
+
+### Questão 3 - Se $P(A)=\frac{1}{2}$; $P(B)=\frac{1}{3}$ e $P(A \cap B)=\frac{1}{4}$, calcule:
+
+$\color{red}{\text{Resolução:}}$ 
+
+Sabendo que $P(A)=0.5$; $P(B)=0.33$ e $P(A \cap B)=0.25$, poderemos desenvolver uma pequena rotina.
+
+```{r}
+quest3=function(a,b,c){
+  cat("a) A probabilidade de A uniao com B é",a+b)
+  cat("\nb) A probabilidade do complementar de A união com o complementar de B é",1-c)
+  cat("\nc) A probabilidade do complementar de A inter o complementar de B é",1-(a+b-c))
+  }
+```
+Poderemos chamar os resultados usando:
+```{r}
+quest3(0.5,0.33,0.25)
+```
+É interessante demonstrar alguns dos cálculos realizados acima, por exemplo, para a letra (a), temos:
+\begin{eqnarray}
+P(A \cup B) &=& P(A)+P(B)-P(A \cap B)\\
+P(A \cup B) &=& 0.5+0.33+0\\
+P(A \cup B) &=& 0.83
+\end{eqnarray}
+
+Para a letra (b), temos:
+\begin{eqnarray}
+P(\overline{A} \cup \overline{B}) &=& P(\overline{A \cap B})\\
+P(\overline{A} \cup \overline{B}) &=& 1- P({A \cap B})\\
+P(\overline{A} \cup \overline{B}) &=& 1-0.25\\
+P(\overline{A} \cup \overline{B}) &=& 0.75
+\end{eqnarray}
+
+Para a letra (c), temos:
+
+\begin{eqnarray}
+P(\overline{A} \cap \overline{B}) &=& P(\overline{A \cup B)}\\
+P(\overline{A} \cap \overline{B}) &=& 1- P(A \cup B)\\
+P(\overline{A} \cap \overline{B}) &=& 1-(P(A)+P(B)-P(A \cap B))\\
+P(\overline{A} \cap \overline{B}) &=& 1-(0.5+0.33-0.25)\\
+P(\overline{A} \cap \overline{B}) &=& 1-0.58\\
+P(\overline{A} \cap \overline{B}) &=& 0.42
+\end{eqnarray}
+
+
+### Questão 4 - Determine a probabilidade de cada evento:
+
+*  a) Um número par aparece no lançamento de um dado não viciado;
+*  b) um rei aparece ao extra-se uma carta de um baralho;
+*  c) pelo menos uma cara aparece no lançamento de 3 moedas;
+*  d) pelo menos uma cara aparece no lançamento de 'n' moedas;
+*  e) duas copas aparecem ao retirarem-se duas cartas de um baralho;
+*  f) uma carta de copas e uma de ouros aparecem ao extraírem-se duas cartas de um baralho.
+
+$\color{red}{\text{Resolução:}}$ 
+
+  + O espaço amostral associado ao experimento  *dado não viciado* é dado por $\omega$ = (`r A=seq(1:6);A`), onde cada face do dado tem a mesma probabilidade de ocorrência.  O evento A = (número par) é dado por A = (`r a=c(2,4,6);a`). Portanto a probabilidade de $P(A) = \frac{3}{6}$ = `r length(a)/length(A)`.
+  
+  
+  + Deveremos encontrar a probabilidade de se encontrar um rei ao extrair-se uma carta de um baralho. Neste caso o espaço amostral associado ao experimento será dado por $\omega = (1,\ldots, 52)$ cartas, sendo 4 áses, 4 reis, 4 damas e 4 valetes. Portanto a probabilidade procurada é dada por $P(B)=\frac{4}{52}$ = `r 4/52`.  
+  
+  
+  + Nesta questão deveremos determinar a probabilidade de pelo menos uma *cara* aparecer em um lançamento de três moedas. Neste caso, o espaço amostral associado ao experimento é dado por $\omega$ = (KKK,KKC,KCK,CKK,CCC,CCK,CKC,KCC), com o seguinte evento C = (KKC, KCK,CKK,CCC,CCK,CKC,KCC). Portanto a probabilidade será dada por $P(C)=\frac{7}{8}$ = `r 7/8`.
+  
+  + Nesta questão deveremos determinar a probabilidade de aparecer pelo menos uma cara no lançamento de "n" moedas. Os casos possiveis associado a este experimento é dado por $2^n$ e os casos favoráveis é dado por $2^n-1$, portanto a probabilidade será dada por $P(D)=\frac{2^n-1}{2^n}$.
+  
+  
+  + Deveremos determinar a probabilidade de duas copas aparecerem ao retirarem-se duas cartas de um baralho. Um baralho de 52 cartas tem 4 símbolos (Espadas, Copas, Ouros e Paus) diferentes. Cada um desses símbolos representa um naipe. Cada naipe possui 13 cartas (A,K,Q,J,10,9,8,7,6,5,4,3,3) que se repetem e portanto existem 4 Áses, 4 Reis, 4 Damas, 4 Valetes, etc. Portanto, supondo que este evento é sem reposição da carta extraída, teremos $P(E)=\frac{13}{52}\cdot \frac{12}{51}=\frac{1}{17}$.
+  
+  
+  + Deveremos determinar a probabilidade de uma carta de copas e uma de ouros aparecerem ao extraíremos duas cartas de um baralho. Temos $P(O_2/C_1)=\frac{13}{51}\cdot \frac{13}{52}$ e $P(C_2/O_1)=\frac{13}{51}\cdot \frac{13}{52}$. Desta forma, temos $P(Copas \cap Ouros)=\frac{13}{51}\cdot \frac{13}{52}+\frac{13}{51}\cdot \frac{13}{52} = \frac{13}{102}$ = `r 13/51*13/52+13/51*13/52`.
+  
+### Questão 5 - Um número inteiro é escolhido aleatoriamente dentre os números $1,2,\ldots, 50$. qual a probabilidade de:
+
+*  a) O número ser divisível por 5;
+*  b) terminar em 3;
+*  c) ser primo;
+*  d) ser divisível por 6 ou por 8.
+
+$\color{red}{\text{Resolução:}}$ 
+
++   O espaço amostral associado ao experimento é dado por $\omega$ = (`r a= seq(1:50);a`). Para que o número seja divisível por 5 ele deverá terminar em zerou ou 5, portanto, temos o seguinte evento associado ao experimento A=(`r A = c(5,10,15,20,25,30,35,40,45,50);A`). Portanto a probabilidade procurada é dada por $P(A)=\frac{10}{50}$ = `r length(A)/length(seq(1:50))`.
+
++ o evento associado em terminar em 3 é dado por B=(`r B =c(3,13,23,33,43);B`), portanto a probabilidade é dada por $P(B)=\frac{5}{50}$ = `r  length(B)/length(seq(1:50))`.   
+
